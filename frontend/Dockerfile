@@ -1,23 +1,17 @@
 FROM nginx:alpine
 
-# Copy custom nginx configuration
+# نسخ ملف الإعدادات
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Copy static files
-COPY index.html /usr/share/nginx/html/
-COPY styles.css /usr/share/nginx/html/
-COPY script.js /usr/share/nginx/html/
+# نسخ ملفات الواجهة
+COPY ./*.html /usr/share/nginx/html/
+COPY ./*.css /usr/share/nginx/html/
+COPY ./*.js /usr/share/nginx/html/
 
+# تأكد أن nginx عنده صلاحيات على مجلد الكاش
+RUN mkdir -p /var/cache/nginx && \
+    chmod -R 777 /var/cache/nginx
 
-# Use non-root user for security
-USER nginx
+EXPOSE 80
 
-# Expose port
-EXPOSE 8080
-
-# Health check (using curl instead of wget for Alpine image)
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:8080/health || exit 1
-
-# Start nginx
 CMD ["nginx", "-g", "daemon off;"]
