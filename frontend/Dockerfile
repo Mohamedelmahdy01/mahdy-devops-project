@@ -4,9 +4,10 @@ FROM nginx:alpine
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy static files
-COPY ./*.html /usr/share/nginx/html/
-COPY ./*.css /usr/share/nginx/html/
-COPY ./*.js /usr/share/nginx/html/
+COPY index.html /usr/share/nginx/html/
+COPY styles.css /usr/share/nginx/html/
+COPY script.js /usr/share/nginx/html/
+
 
 # Use non-root user for security
 USER nginx
