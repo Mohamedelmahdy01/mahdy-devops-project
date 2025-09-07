@@ -15,6 +15,9 @@ help:
 	@echo "  make clean     - Clean up containers and images"
 	@echo "  make dev       - Start in development mode"
 	@echo "  make prod      - Start in production mode"
+	@echo "  make deploy-prod - Deploy using production images"
+	@echo "  make pull-prod - Pull production images from Docker Hub"
+	@echo "  make deploy-status - Show deployment status"
 	@echo ""
 
 # Build all containers
@@ -87,3 +90,21 @@ run-backend:
 # Run frontend locally
 run-frontend:
 	cd frontend && npx serve -s . -l 8080
+
+# Production deployment
+deploy-prod:
+	docker-compose -f docker-compose.prod.yml --env-file .env.prod up -d
+
+# Pull production images
+pull-prod:
+	docker pull $(DOCKERHUB_USERNAME)/mahdy-backend:$(BACKEND_TAG)
+	docker pull $(DOCKERHUB_USERNAME)/mahdy-frontend:$(FRONTEND_TAG)
+
+# Show deployment status
+deploy-status:
+	@echo "Docker Hub Images:"
+	@echo "Backend: $(DOCKERHUB_USERNAME)/mahdy-backend:$(BACKEND_TAG)"
+	@echo "Frontend: $(DOCKERHUB_USERNAME)/mahdy-frontend:$(FRONTEND_TAG)"
+	@echo ""
+	@echo "Local Containers:"
+	@docker ps --filter "name=mahdy-"
