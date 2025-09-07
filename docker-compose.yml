@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   backend:
     build:
@@ -6,12 +8,11 @@ services:
     container_name: mahdy-backend
     ports:
       - "3000:3000"
-    # Use .env file for environment variables instead of hardcoding
     env_file:
       - ./.env
-    volumes:
-      # Mount the logs directory to a persistent volume
-      - backend-logs:/var/log/app
+    # Removed the unnecessary volumes mapping for logs
+    # volumes:
+    #   - backend-logs:/var/log/app
     networks:
       - mahdy-network
     restart: unless-stopped
@@ -33,7 +34,7 @@ services:
       backend:
         condition: service_healthy
     volumes:
-      # Mount the logs directory to a persistent volume
+      # This log volume mapping is correct for Nginx logs
       - frontend-logs:/var/log/nginx
     networks:
       - mahdy-network
