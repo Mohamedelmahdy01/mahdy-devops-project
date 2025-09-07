@@ -1,31 +1,29 @@
+# Use the official Node.js 18 Alpine image
 FROM node:18-alpine
 
-# Set working directory
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy package files
+# Copy package.json and package-lock.json (if present)
+# Using wildcard to handle both files
 COPY package*.json ./
 
-# Install dependencies
+# Install application dependencies
+# The --only=production flag installs only production dependencies
 RUN npm install --only=production
 
-# Copy application code
-COPY app.js ./
+# Copy the rest of the application source code
+COPY . .
 
-# Create non-root user
-RUN addgroup -g 1001 -S nodejs
-RUN adduser -S nodejs -u 1001
+# Switch to the non-root 'node' user that already exists in the image
+USER node
 
-# Change ownership
-RUN chown -R nodejs:nodejs /app
-USER nodejs
-
-# Expose port
+# Expose the port the application runs on
 EXPOSE 3000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
   CMD node -e "require('http').get('http://localhost:3000/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"
 
-# Start application
+# Command to run the application
 CMD ["npm", "start"]

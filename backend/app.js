@@ -11,6 +11,19 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Function to format uptime for better readability
+function formatUptime(seconds) {
+    const days = Math.floor(seconds / 86400);
+    const hours = Math.floor((seconds % 86400) / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = Math.floor(seconds % 60);
+
+    if (days > 0) return `${days}d ${hours}h ${minutes}m`;
+    if (hours > 0) return `${hours}h ${minutes}m ${secs}s`;
+    if (minutes > 0) return `${minutes}m ${secs}s`;
+    return `${secs}s`;
+}
+
 // Routes
 app.get('/', (req, res) => {
     res.json({
@@ -24,7 +37,7 @@ app.get('/', (req, res) => {
 app.get('/health', (req, res) => {
     res.status(200).json({
         status: 'healthy',
-        uptime: process.uptime(),
+        uptime: formatUptime(process.uptime()), // Formatted uptime
         timestamp: new Date().toISOString(),
         service: 'backend'
     });
@@ -36,7 +49,7 @@ app.get('/api/hello', (req, res) => {
         data: {
             method: req.method,
             url: req.url,
-            headers: req.headers,
+            // To get the real client IP behind a proxy, you might need: req.headers['x-forwarded-for'] || req.socket.remoteAddress
             clientIP: req.ip || req.connection.remoteAddress,
             timestamp: new Date().toISOString()
         },

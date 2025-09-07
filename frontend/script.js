@@ -1,7 +1,5 @@
-// Backend API URL - will be set by environment or default to localhost
-const BACKEND_URL = window.location.hostname === 'localhost' 
-  ? 'http://localhost:3000' 
-  : 'http://backend:3000';
+// Backend API URL - will use a relative path
+const BACKEND_URL = '/api/hello';
 
 const translations = {
   en: {
@@ -81,7 +79,7 @@ function toggleTheme() {
     document.getElementById("theme-btn").innerHTML = "🌙 Dark";
   } else {
     document.body.classList.add("light");
-        document.getElementById("theme-btn").innerHTML = "Light";
+    document.getElementById("theme-btn").innerHTML = "Light";
   }
 }
 
@@ -90,49 +88,48 @@ function getBackendInfo() {
   const modal = document.getElementById('backend-modal');
   const loading = document.getElementById('loading');
   const details = document.getElementById('backend-details');
-  
+
   // Show modal and reset content
   modal.style.display = 'flex';
   loading.style.display = 'block';
   details.style.display = 'none';
-  
+
   // Get current language
   const lang = currentLang;
-  
+
   // Fetch backend information
-  fetch(`${BACKEND_URL}/api/hello`)
+  fetch(`${BACKEND_URL}`)
     .then(response => response.json())
     .then(data => {
       // Get client IP and port info
       const clientIP = window.location.hostname;
       const clientPort = window.location.port || (window.location.protocol === 'https:' ? '443' : '80');
-      const protocol = window.location.protocol;
-      
+
       // Display backend information
       details.innerHTML = `
         <div style="text-align: left;">
           <div style="margin-bottom: 15px;">
-            <strong><i class="fas fa-globe"></i> ${translations[lang].ip}:</strong> 
+            <strong><i class="fas fa-globe"></i> ${translations[lang].ip}:</strong>
             <span style="color: var(--primary);">${clientIP}</span>
           </div>
           <div style="margin-bottom: 15px;">
-            <strong><i class="fas fa-plug"></i> ${translations[lang].port}:</strong> 
+            <strong><i class="fas fa-plug"></i> ${translations[lang].port}:</strong>
             <span style="color: var(--primary);">${clientPort}</span>
           </div>
           <div style="margin-bottom: 15px;">
-            <strong><i class="fas fa-shield-alt"></i> ${translations[lang].status}:</strong> 
+            <strong><i class="fas fa-shield-alt"></i> ${translations[lang].status}:</strong>
             <span style="color: #4ade80;">Healthy</span>
           </div>
           <div style="margin-bottom: 15px;">
-            <strong><i class="fas fa-cog"></i> ${translations[lang].environment}:</strong> 
+            <strong><i class="fas fa-cog"></i> ${translations[lang].environment}:</strong>
             <span style="color: var(--accent);">${data.environment || 'development'}</span>
           </div>
           <div style="margin-bottom: 15px;">
-            <strong><i class="fas fa-server"></i> Service:</strong> 
+            <strong><i class="fas fa-server"></i> Service:</strong>
             <span style="color: var(--primary);">${data.service || 'backend'}</span>
           </div>
           <div style="margin-bottom: 15px;">
-            <strong><i class="fas fa-calendar"></i> ${translations[lang].timestamp}:</strong> 
+            <strong><i class="fas fa-calendar"></i> ${translations[lang].timestamp}:</strong>
             <span style="color: var(--primary);">${new Date(data.timestamp).toLocaleString()}</span>
           </div>
           <div style="margin-top: 20px; padding: 15px; background: rgba(67, 97, 238, 0.1); border-radius: 8px; border-left: 4px solid var(--primary);">
@@ -141,7 +138,7 @@ function getBackendInfo() {
           </div>
         </div>
       `;
-      
+
       loading.style.display = 'none';
       details.style.display = 'block';
     })
@@ -162,23 +159,6 @@ function getBackendInfo() {
 
 function closeBackendModal() {
   document.getElementById('backend-modal').style.display = 'none';
-}
-
-function formatUptime(seconds) {
-  const days = Math.floor(seconds / 86400);
-  const hours = Math.floor((seconds % 86400) / 3600);
-  const minutes = Math.floor((seconds % 3600) / 60);
-  const secs = Math.floor(seconds % 60);
-  
-  if (days > 0) {
-    return `${days}d ${hours}h ${minutes}m`;
-  } else if (hours > 0) {
-    return `${hours}h ${minutes}m ${secs}s`;
-  } else if (minutes > 0) {
-    return `${minutes}m ${secs}s`;
-  } else {
-    return `${secs}s`;
-  }
 }
 
 // Close modal when clicking outside
