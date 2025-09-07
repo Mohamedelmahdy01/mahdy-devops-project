@@ -10,14 +10,11 @@ services:
       - "3000:3000"
     env_file:
       - ./.env
-    # Removed the unnecessary volumes mapping for logs
-    # volumes:
-    #   - backend-logs:/var/log/app
     networks:
       - mahdy-network
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -34,13 +31,12 @@ services:
       backend:
         condition: service_healthy
     volumes:
-      # This log volume mapping is correct for Nginx logs
       - frontend-logs:/var/log/nginx
     networks:
       - mahdy-network
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -52,7 +48,5 @@ networks:
     name: mahdy-network
 
 volumes:
-  backend-logs:
-    driver: local
   frontend-logs:
     driver: local

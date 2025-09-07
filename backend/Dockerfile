@@ -5,25 +5,31 @@ FROM node:18-alpine
 WORKDIR /app
 
 # Copy package.json and package-lock.json (if present)
-# Using wildcard to handle both files
 COPY package*.json ./
 
 # Install application dependencies
-# The --only=production flag installs only production dependencies
 RUN npm install --only=production
 
 # Copy the rest of the application source code
 COPY . .
 
-# Switch to the non-root 'node' user that already exists in the image
+# Ensure 'node' user owns the app directory
+RUN chown -R node:node /app
+
+# Switch to non-root user
 USER node
 
-# Expose the port the application runs on
+# Expose the port
 EXPOSE 3000
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:3000/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"
+# Install curl for healthcheck
+USER root
+RUN apk add --no-cache curl
+USER node
 
-# Command to run the application
+# Health check
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:3000/health || exit 1
+
+# Start the app
 CMD ["npm", "start"]
