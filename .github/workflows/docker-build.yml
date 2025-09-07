@@ -77,5 +77,6 @@ jobs:
         cache-to: type=gha,mode=max
         
     - name: Image digest
-      run: echo "Backend image: ${{ steps.meta-backend.outputs.tags }}"
-      run: echo "Frontend image: ${{ steps.meta-frontend.outputs.tags }}"
+      run: |
+        echo "Backend image: ${{ steps.meta-backend.outputs.tags }}"
+        echo "Frontend image: ${{ steps.meta-frontend.outputs.tags }}"
