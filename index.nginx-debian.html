@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moassel.com – Coming Soon 🚧</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3a0ca3;
+      --accent: #f72585;
+      --dark: #1e1e2f;
+      --darker: #161625;
+      --light: #f8f9fa;
+      --gray: #4a4a6a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--darker), var(--dark));
+      color: var(--light);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    body.light {
+      background: linear-gradient(135deg, #fdfdfd, #eaeaea);
+      color: #222;
+    }
+
+    .container {
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      animation: fadeIn 1s ease-out;
+    }
+
+    .logo {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(to right, var(--accent), var(--primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 1.4rem;
+      color: #a0a0c0;
+      margin-bottom: 2rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-bottom: 3rem;
+    }
+
+    .card {
+      background: rgba(42, 42, 61, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    body.light .card {
+      background: rgba(255, 255, 255, 0.8);
+      color: #222;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+
+    .card h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1.2rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card h2 i {
+      color: var(--accent);
+    }
+
+    .card p {
+      color: #d0d0e0;
+      margin-bottom: 1.5rem;
+    }
+    body.light .card p {
+      color: #444;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 12px 15px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      transition: background 0.3s ease;
+    }
+
+    body.light .contact-item {
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    .contact-item:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+    body.light .contact-item:hover {
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-item i {
+      font-size: 1.2rem;
+      color: var(--primary);
+      width: 25px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 25px;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+      margin-top: 10px;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(67, 97, 238, 0.4);
+    }
+
+    .btn.outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      box-shadow: none;
+    }
+
+    .btn.outline:hover {
+      background: rgba(67, 97, 238, 0.1);
+    }
+
+    .progress-container {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      margin: 2rem 0;
+    }
+
+    body.light .progress-container {
+      background: rgba(0, 0, 0, 0.1);
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 75%;
+      background: linear-gradient(to right, var(--accent), var(--primary));
+      border-radius: 4px;
+      animation: progressAnimation 1.5s ease-in-out;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      color: #8888a8;
+      font-size: 0.9rem;
+    }
+    body.light footer {
+      color: #555;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes progressAnimation {
+      0% { width: 0; }
+      100% { width: 75%; }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      h1 { font-size: 2.2rem; }
+      .subtitle { font-size: 1.2rem; }
+      .cards { grid-template-columns: 1fr; }
+    }
+
+    /* Switch Buttons */
+    .top-controls {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    .switch-btn {
+      background: rgba(255,255,255,0.1);
+      border-radius: 8px;
+      padding: 6px 12px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background 0.3s;
+    }
+    .switch-btn:hover {
+      background: rgba(255,255,255,0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="top-controls">
+    <div class="switch-btn" onclick="toggleLang()" id="lang-btn">العربية</div>
+    <div class="switch-btn" onclick="toggleTheme()" id="theme-btn">🌙 Dark</div>
+  </div>
+
+  <div class="container">
+    <header>
+      <div class="logo">
+        <i class="fas fa-rocket"></i>
+      </div>
+      <h1 id="title">mahdy.online Coming Soon</h1>
+      <p id="subtitle" class="subtitle">⏳ Our website is under construction, but we’re working hard to launch soon!</p>
+    </header>
+
+    <div class="progress-container">
+      <div class="progress-bar"></div>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <h2><i class="fas fa-user"></i> <span id="about-title">About the Developer</span></h2>
+        <p id="about-text">Hello! I'm <strong>Mohamed Mahdy</strong>, a DevOps Engineer currently building <strong>Moassel</strong>. This project will provide amazing content and services soon.</p>
+      </div>
+
+      <div class="card">
+        <h2><i class="fas fa-envelope"></i> <span id="contact-title">Contact Us</span></h2>
+        <p id="contact-text">Stay updated with the latest news by reaching out:</p>
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <span>medo.medo132003@gmail.com</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <span>+20 128 357 8778</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <a href="https://www.linkedin.com/in/mohamed-elmahdy01/" class="btn">
+        <i class="fab fa-linkedin"></i> Connect on LinkedIn
+      </a>
+      <a href="mailto:medo.medo132003@gmail.com" class="btn outline">
+        <i class="fas fa-paper-plane"></i> Send an Email
+      </a>
+      <button onclick="getBackendInfo()" class="btn" style="background: linear-gradient(to right, #f72585, #4361ee);">
+        <i class="fas fa-server"></i> <span id="backend-btn-text">Backend Info</span>
+      </button>
+    </div>
+
+    <!-- Backend Info Modal -->
+    <div id="backend-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; display: flex; justify-content: center; align-items: center;">
+      <div style="background: var(--dark); padding: 30px; border-radius: 16px; max-width: 500px; width: 90%; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+        <h3 style="color: var(--primary); margin-bottom: 20px;"><i class="fas fa-server"></i> <span id="backend-modal-title">Backend Information</span></h3>
+        <div id="backend-info" style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+          <div id="loading" style="display: block;">
+            <i class="fas fa-spinner fa-spin"></i> <span id="loading-text">Loading...</span>
+          </div>
+          <div id="backend-details" style="display: none;">
+            <!-- Backend info will be displayed here -->
+          </div>
+        </div>
+        <button onclick="closeBackendModal()" class="btn outline" style="margin-top: 10px;">
+          <i class="fas fa-times"></i> <span id="close-btn-text">Close</span>
+        </button>
+      </div>
+    </div>
+
+    <footer>
+      <p id="footer-text">© 2025 Moassel. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    const translations = {
+      en: {
+        title: "mahdy.online Coming Soon",
+        subtitle: "⏳ Our website is under construction, but we're working hard to launch soon!",
+        aboutTitle: "About the Developer",
+        aboutText: "Hello! I'm <strong>Mohamed Mahdy</strong>, a DevOps Engineer currently building <strong>Moassel</strong>. This project will provide amazing content and services soon.",
+        contactTitle: "Contact Us",
+        contactText: "Stay updated with the latest news by reaching out:",
+        footerText: "© 2025 Moassel. All rights reserved.",
+        switchLang: "العربية",
+        backendBtn: "Backend Info",
+        backendModalTitle: "Backend Information",
+        loading: "Loading...",
+        close: "Close",
+        backendDetails: "Backend Details",
+        ip: "IP Address",
+        port: "Port",
+        status: "Status",
+        environment: "Environment",
+        uptime: "Uptime",
+        timestamp: "Last Updated"
+      },
+      ar: {
+        title: "mahdy.online قريباً",
+        subtitle: "⏳ موقعنا الإلكتروني قيد التطوير، لكننا نعمل بجد لإطلاقه قريباً!",
+        aboutTitle: "عن المطور",
+        aboutText: "مرحباً! أنا <strong>محمد مهدي</strong>، مهندس DevOps أعمل حالياً على تطوير موقع <strong>معسل</strong>. هذا المشروع يركز على تقديم محتوى وخدمات رائعة قريباً.",
+        contactTitle: "تواصل معنا",
+        contactText: "ابق على اطلاع بأحدث التطورات من خلال التواصل معنا:",
+        footerText: "© 2025 Moassel. كل الحقوق محفوظة",
+        switchLang: "English",
+        backendBtn: "معلومات الخادم",
+        backendModalTitle: "معلومات الخادم الخلفي",
+        loading: "جاري التحميل...",
+        close: "إغلاق",
+        backendDetails: "تفاصيل الخادم",
+        ip: "عنوان IP",
+        port: "المنفذ",
+        status: "الحالة",
+        environment: "البيئة",
+        uptime: "وقت التشغيل",
+        timestamp: "آخر تحديث"
+      }
+    };
+
+    let currentLang = "en";
+    function toggleLang() {
+      currentLang = currentLang === "en" ? "ar" : "en";
+      document.getElementById("title").innerHTML = translations[currentLang].title;
+      document.getElementById("subtitle").innerHTML = translations[currentLang].subtitle;
+      document.getElementById("about-title").innerHTML = translations[currentLang].aboutTitle;
+      document.getElementById("about-text").innerHTML = translations[currentLang].aboutText;
+      document.getElementById("contact-title").innerHTML = translations[currentLang].contactTitle;
+      document.getElementById("contact-text").innerHTML = translations[currentLang].contactText;
+      document.getElementById("footer-text").innerHTML = translations[currentLang].footerText;
+      document.getElementById("lang-btn").innerHTML = translations[currentLang].switchLang;
+      document.getElementById("backend-btn-text").innerHTML = translations[currentLang].backendBtn;
+      document.getElementById("backend-modal-title").innerHTML = translations[currentLang].backendModalTitle;
+      document.getElementById("loading-text").innerHTML = translations[currentLang].loading;
+      document.getElementById("close-btn-text").innerHTML = translations[currentLang].close;
+
+      if (currentLang === "ar") {
+        document.documentElement.lang = "ar";
+        document.documentElement.dir = "rtl";
+      } else {
+        document.documentElement.lang = "en";
+        document.documentElement.dir = "ltr";
+      }
+    }
+
+    let darkMode = true;
+    function toggleTheme() {
+      darkMode = !darkMode;
+      if (darkMode) {
+        document.body.classList.remove("light");
+        document.getElementById("theme-btn").innerHTML = "🌙 Dark";
+      } else {
+        document.body.classList.add("light");
+        document.getElementById("theme-btn").innerHTML = "Light";
+      }
+    }
+
+    // Backend Info Functions
+    function getBackendInfo() {
+      const modal = document.getElementById('backend-modal');
+      const loading = document.getElementById('loading');
+      const details = document.getElementById('backend-details');
+      
+      // Show modal and reset content
+      modal.style.display = 'flex';
+      loading.style.display = 'block';
+      details.style.display = 'none';
+      
+      // Get current language
+      const lang = currentLang;
+      
+      // Fetch backend information
+      fetch('/api/hello')
+        .then(response => response.json())
+        .then(data => {
+          // Get client IP and port info
+          const clientIP = window.location.hostname;
+          const clientPort = window.location.port || (window.location.protocol === 'https:' ? '443' : '80');
+          const protocol = window.location.protocol;
+          
+          // Display backend information
+          details.innerHTML = `
+            <div style="text-align: left;">
+              <div style="margin-bottom: 15px;">
+                <strong><i class="fas fa-globe"></i> ${translations[lang].ip}:</strong> 
+                <span style="color: var(--primary);">${clientIP}</span>
+              </div>
+              <div style="margin-bottom: 15px;">
+                <strong><i class="fas fa-plug"></i> ${translations[lang].port}:</strong> 
+                <span style="color: var(--primary);">${clientPort}</span>
+              </div>
+              <div style="margin-bottom: 15px;">
+                <strong><i class="fas fa-shield-alt"></i> ${translations[lang].status}:</strong> 
+                <span style="color: #4ade80;">Healthy</span>
+              </div>
+              <div style="margin-bottom: 15px;">
+                <strong><i class="fas fa-cog"></i> ${translations[lang].environment}:</strong> 
+                <span style="color: var(--accent);">${data.environment || 'nginx-only'}</span>
+              </div>
+              <div style="margin-bottom: 15px;">
+                <strong><i class="fas fa-server"></i> Service:</strong> 
+                <span style="color: var(--primary);">Nginx Only</span>
+              </div>
+              <div style="margin-bottom: 15px;">
+                <strong><i class="fas fa-calendar"></i> ${translations[lang].timestamp}:</strong> 
+                <span style="color: var(--primary);">${new Date(data.timestamp).toLocaleString()}</span>
+              </div>
+              <div style="margin-top: 20px; padding: 15px; background: rgba(67, 97, 238, 0.1); border-radius: 8px; border-left: 4px solid var(--primary);">
+                <strong><i class="fas fa-info-circle"></i> ${translations[lang].backendDetails}:</strong><br>
+                <small style="color: #a0a0c0;">${data.message}</small>
+              </div>
+            </div>
+          `;
+          
+          loading.style.display = 'none';
+          details.style.display = 'block';
+        })
+        .catch(error => {
+          console.error('Error fetching backend info:', error);
+          details.innerHTML = `
+            <div style="text-align: center; color: #ff6b6b;">
+              <i class="fas fa-exclamation-triangle"></i><br>
+              <strong>Error connecting to backend</strong><br>
+              <small>Please check if the backend service is running</small>
+            </div>
+          `;
+          loading.style.display = 'none';
+          details.style.display = 'block';
+        });
+    }
+
+    function closeBackendModal() {
+      document.getElementById('backend-modal').style.display = 'none';
+    }
+
+    function formatUptime(seconds) {
+      const days = Math.floor(seconds / 86400);
+      const hours = Math.floor((seconds % 86400) / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const secs = Math.floor(seconds % 60);
+      
+      if (days > 0) {
+        return `${days}d ${hours}h ${minutes}m`;
+      } else if (hours > 0) {
+        return `${hours}h ${minutes}m ${secs}s`;
+      } else if (minutes > 0) {
+        return `${minutes}m ${secs}s`;
+      } else {
+        return `${secs}s`;
+      }
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('backend-modal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeBackendModal();
+      }
+    });
+  </script>
+</body>
+</html>
+

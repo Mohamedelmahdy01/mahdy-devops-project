@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mahdy.com – Coming Soon 🚧</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="top-controls">
+    <div class="switch-btn" onclick="toggleLang()" id="lang-btn">العربية</div>
+    <div class="switch-btn" onclick="toggleTheme()" id="theme-btn">🌙 Dark</div>
+  </div>
+
+  <div class="container">
+    <header>
+      <div class="logo">
+        <i class="fas fa-rocket"></i>
+      </div>
+      <h1 id="title">mahdy.online Coming Soon</h1>
+      <p id="subtitle" class="subtitle">⏳ Our website is under construction, but we're working hard to launch soon!</p>
+    </header>
+
+    <div class="progress-container">
+      <div class="progress-bar"></div>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <h2><i class="fas fa-user"></i> <span id="about-title">About the Developer</span></h2>
+        <p id="about-text">Hello! I'm <strong>Mohamed Mahdy</strong>, a DevOps Engineer currently building <strong>Mahdy</strong>. This project will provide amazing content and services soon.</p>
+      </div>
+
+      <div class="card">
+        <h2><i class="fas fa-envelope"></i> <span id="contact-title">Contact Us</span></h2>
+        <p id="contact-text">Stay updated with the latest news by reaching out:</p>
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <span>medo.medo132003@gmail.com</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <span>+20 128 357 8778</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-bottom: 2rem;">
+      <a href="https://www.linkedin.com/in/mohamed-elmahdy01/" class="btn">
+        <i class="fab fa-linkedin"></i> Connect on LinkedIn
+      </a>
+      <a href="mailto:medo.medo132003@gmail.com" class="btn outline">
+        <i class="fas fa-paper-plane"></i> Send an Email
+      </a>
+      <button onclick="getBackendInfo()" class="btn" style="background: linear-gradient(to right, #f72585, #4361ee);">
+        <i class="fas fa-server"></i> <span id="backend-btn-text">Backend Info</span>
+      </button>
+    </div>
+
+    <!-- Backend Info Modal -->
+    <div id="backend-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; display: flex; justify-content: center; align-items: center;">
+      <div style="background: var(--dark); padding: 30px; border-radius: 16px; max-width: 500px; width: 90%; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+        <h3 style="color: var(--primary); margin-bottom: 20px;"><i class="fas fa-server"></i> <span id="backend-modal-title">Backend Information</span></h3>
+        <div id="backend-info" style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+          <div id="loading" style="display: block;">
+            <i class="fas fa-spinner fa-spin"></i> <span id="loading-text">Loading...</span>
+          </div>
+          <div id="backend-details" style="display: none;">
+            <!-- Backend info will be displayed here -->
+          </div>
+        </div>
+        <button onclick="closeBackendModal()" class="btn outline" style="margin-top: 10px;">
+          <i class="fas fa-times"></i> <span id="close-btn-text">Close</span>
+        </button>
+      </div>
+    </div>
+
+    <footer>
+      <p id="footer-text">© 2025 Mahdy. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
